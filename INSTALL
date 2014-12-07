@@ -1,0 +1,72 @@
+Suntans Plugin for Visit
+
+Prerequisites:
+ VisIt version 2.x, with the libraries and matching compiler 
+   to allow building plugins.
+
+ cmake
+
+
+Compiling:
+
+  <path-to-visit-binaries>/xml2info -clobber suntans.xml
+  <path-to-visit-binaries>/xml2cmake -clobber suntans.xml
+  cmake .
+  make
+
+  # this should compile and install the plugin
+  
+Running:
+
+    Options...Plugin Manager...Databases
+       -> Suntans should show up in this list (if not, check startup messagse
+          for possible errors loading the plugin).  Make sure it's enabled.
+
+    Then go to File...Open, select the suntans.dat file (must be in the same
+    directory as the output files), and select the suntans plugin (instead of
+    guessing by file type).
+
+    Several file format plugins claim the *.dat filename extension, so you either
+    have to delete the TFT plugin, or always manually choose the format as above.
+
+    If it successfully loaded the run, the Plot button should be enabled.  Click
+    on it, select Pseudocolor...freesurface.  Then click 'Draw'.  You can now use
+    the timeline slider to navigate through timesteps.
+   
+
+  Current capabilities:
+    Can read data from runs that have not started, are in progress, or are finished.
+    The plugin itself is not parallelized, but it can read multiple subdomains from
+    a parallel run and visit will stitch them together.
+
+    Available fields:
+     surface u,v velocity
+     3D u,v,w (less tested)
+     bathymetry
+     plot points from depth.dat
+     freesurface
+     wireframe of the mesh itself
+     salinity
+     temperature
+     nu_T
+
+    Fields from store.dat.* files:
+     face-normal velocity
+     freesurface
+     salinity
+
+  Visit also makes available some automatic fields, including some mesh quality
+    variables.
+
+Caveats:
+
+SUNTANS is an evolving model.  Some aspects of the plugin make assumptions
+about what version of SUNTANS you're using.  It has been tested with the 
+UC Berkeley development branch, but may work with others.
+
+  
+  
+    
+
+
+
